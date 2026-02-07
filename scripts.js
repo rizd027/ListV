@@ -227,13 +227,46 @@ function showAlert(title, message, type = 'info') {
 function showToast(message, type = 'success') {
     if (toastTimeout) clearTimeout(toastTimeout);
     const toast = elements.toast;
+
+    // Reset toast completely to trigger animation
     toast.classList.remove('active');
-    void toast.offsetWidth;
+    void toast.offsetWidth; // Force reflow
+
     elements.toastMessage.textContent = message;
-    toast.className = `toast active ${type}`;
-    const iconName = type === 'success' ? 'check-circle' : (type === 'info' ? 'info' : 'alert-circle');
+
+    // Map type to icons
+    const iconMap = {
+        'success': 'check-circle',
+        'update': 'refresh-cw',
+        'delete': 'trash-2',
+        'error': 'alert-circle',
+        'info': 'info'
+    };
+
+    // Special handling for the user's requested keywords if they are passed as types
+    let iconName = iconMap[type] || 'check-circle';
+    let className = type;
+
+    if (message.toLowerCase().includes('masuk') || message.toLowerCase().includes('berhasil') || message.toLowerCase().includes('tambah')) {
+        className = 'success';
+        iconName = 'check-circle';
+    }
+    if (message.toLowerCase().includes('update') || message.toLowerCase().includes('perbaru')) {
+        className = 'success';
+        iconName = 'refresh-cw';
+    }
+    if (message.toLowerCase().includes('hapus') || message.toLowerCase().includes('delete')) {
+        className = 'error';
+        iconName = 'trash-2';
+    }
+
+    toast.className = `toast active ${className}`;
     elements.toastIcon.setAttribute('data-lucide', iconName);
-    requestAnimationFrame(() => lucide.createIcons());
+
+    if (window.lucide) {
+        lucide.createIcons();
+    }
+
     toastTimeout = setTimeout(() => {
         toast.classList.remove('active');
     }, 3000);
