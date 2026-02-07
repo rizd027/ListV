@@ -30,24 +30,27 @@
         })('bugger');
     }, 1000);
 
-    // 4. Console Clearing & Notification
-    const warning = "ListV Security: Developer tools are disabled for security reasons.";
-    const styles = "color: red; font-size: 20px; font-weight: bold; text-shadow: 2px 2px 0px black;";
+    // Attempt to keep console clean without breaking other scripts
+    try {
+        const warning = "ListV Security: Developer tools are disabled.";
+        const styles = "color: red; font-size: 20px; font-weight: bold;";
 
-    // Attempt to keep console clean
-    Object.defineProperty(window, 'console', {
-        get: function () {
-            if (window._console_blocked) return window._console_blocked;
-            const block = {};
-            ['log', 'info', 'warn', 'error', 'debug', 'dir', 'table'].forEach(m => {
-                block[m] = () => {
-                    // Optional: alert or redirect if they try to log
-                };
-            });
-            window._console_blocked = block;
-            console.log("%c" + warning, styles);
-            return block;
-        }
-    });
+        let blockedConsole = {};
+        ['log', 'info', 'warn', 'error', 'debug', 'dir', 'table'].forEach(m => {
+            blockedConsole[m] = () => { };
+        });
+
+        Object.defineProperty(window, 'console', {
+            get: function () {
+                return blockedConsole;
+            },
+            set: function (val) {
+                // Allow setting but ignore it to prevent "only a getter" errors
+            },
+            configurable: true
+        });
+    } catch (e) {
+        console.warn("Security check limited.");
+    }
 
 })();

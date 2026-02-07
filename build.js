@@ -48,7 +48,8 @@ async function build() {
         // Minify
         const minified = await minify(content, {
             compress: true,
-            mangle: true
+            mangle: true,
+            module: true // Handle ES Modules correctly
         });
 
         // Obfuscate
@@ -60,7 +61,7 @@ async function build() {
             deadCodeInjectionThreshold: 0.4,
             debugProtection: true,
             debugProtectionInterval: 2000,
-            disableConsoleOutput: true,
+            disableConsoleOutput: false, // Re-enable for debugging blank page
             identifierNamesGenerator: 'hexadecimal',
             log: false,
             numbersToExpressions: true,
