@@ -545,7 +545,7 @@ function renderTable() {
 function updateStats() {
     elements.totalCount.textContent = state.filmData.length;
     elements.completedCount.textContent = state.filmData.filter(f => f.status === 'Selesai').length;
-    elements.watchingCount.textContent = state.filmData.filter(f => f.status === 'Sedang Ditonton').length;
+    elements.watchingCount.textContent = state.filmData.filter(f => f.status === 'Watching').length;
     elements.plannedCount.textContent = state.filmData.filter(f => f.status === 'Rencana').length;
 }
 
@@ -800,7 +800,7 @@ function setupStatFilters() {
     const filterMaps = [
         { id: 'stat-total', value: 'Semua Status' },
         { id: 'stat-completed', value: 'Selesai' },
-        { id: 'stat-watching', value: 'Sedang Ditonton' },
+        { id: 'stat-watching', value: 'Watching' },
         { id: 'stat-planned', value: 'Rencana' }
     ];
 

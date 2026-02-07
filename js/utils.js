@@ -25,7 +25,7 @@ export function formatDate(dateStr) {
 export function getStatusClass(status) {
     const map = {
         'Selesai': 'status-selesai',
-        'Sedang Ditonton': 'status-sedang-ditonton',
+        'Watching': 'status-sedang-ditonton',
         'Rencana': 'status-rencana',
         'Ditunda': 'status-ditunda',
         'Drop': 'status-drop'
