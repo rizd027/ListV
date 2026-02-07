@@ -358,64 +358,50 @@
     animation: spin 1s linear infinite;
 }
 
-/* --- Toast Notification v2 (Premium) --- */
+/* --- Toast Notification v2 (Simplified) --- */
 .toast {
     position: fixed;
-    bottom: 2.5rem;
+    bottom: 2rem;
     left: 50%;
-    transform: translateX(-50%) translateY(120px) scale(0.9);
+    transform: translateX(-50%) translateY(20px);
     background: linear-gradient(135deg, rgba(23, 28, 41, 0.95), rgba(15, 18, 25, 0.98));
-    backdrop-filter: blur(24px) saturate(180%);
-    -webkit-backdrop-filter: blur(24px) saturate(180%);
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
     
-    /* Gradient Border Effect */
-    padding: 1px; /* The "border" width */
+    /* Gradient Border */
+    padding: 1px;
     background-image: 
         linear-gradient(rgba(23, 28, 41, 0.95), rgba(15, 18, 25, 0.98)), 
-        linear-gradient(135deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.08));
+        linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
     background-origin: border-box;
     background-clip: padding-box, border-box;
-    border: none;
     
-    border-radius: 20px;
+    border-radius: 16px;
     display: flex;
     align-items: center;
-    gap: 1rem;
-    padding: 0.75rem 1.5rem 0.75rem 0.85rem;
-    box-shadow: 
-        0 20px 40px -10px rgba(0, 0, 0, 0.7),
-        0 0 0 1px rgba(255, 255, 255, 0.03) inset;
-    z-index: 9000;
+    gap: 0.75rem;
+    padding: 0.75rem 1.25rem;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+    z-index: 9999;
     opacity: 0;
-    transition: all 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
-    min-width: 260px;
-    overflow: hidden;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    min-width: 200px;
+    pointer-events: none;
 }
 
 .toast.active {
-    transform: translateX(-50%) translateY(0) scale(1);
+    transform: translateX(-50%) translateY(0);
     opacity: 1;
+    pointer-events: auto;
 }
 
 .toast-icon-container {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 42px;
-    height: 42px;
-    border-radius: 14px;
-    position: relative;
-    transition: transform 0.4s var(--ease);
-}
-
-.toast.active .toast-icon-container {
-    transform: scale(1) rotate(0);
-    animation: icon-entrance 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-}
-
-@keyframes icon-entrance {
-    0% { transform: scale(0.5) rotate(-15deg); opacity: 0; }
-    100% { transform: scale(1) rotate(0); opacity: 1; }
+    width: 32px;
+    height: 32px;
+    border-radius: 10px;
 }
 
 /* Color Themes */
