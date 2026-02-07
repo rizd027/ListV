@@ -222,15 +222,47 @@ function startSlideshow() {
             s.classList.remove('active');
             if (i === 0) s.classList.add('active');
         });
-        setInterval(() => {
-            const nextSlide = (currentSlide + 1) % slides.length;
+        const fadeTime = 1500;
+        const displayTime = 4000;
 
-            // Premium transition logic
-            slides[currentSlide].classList.remove('active');
-            slides[nextSlide].classList.add('active');
+        const runSlideshow = async () => {
+            const nextSlideIdx = (currentSlide + 1) % slides.length;
+            const currentEl = slides[currentSlide];
+            const nextEl = slides[nextSlideIdx];
 
-            currentSlide = nextSlide;
-        }, 4000); // Increased interval to 4s for more "breathing" space
+            try {
+                // Pre-decode next image to prevent frame drops
+                const img = nextEl.querySelector('img') || nextEl;
+                if (img.tagName === 'IMG' && img.decode) {
+                    await img.decode().catch(() => { });
+                }
+
+                // Use Web Animations API (Compositor Thread)
+                // 1. Fade out current
+                currentEl.animate([
+                    { opacity: 1, transform: 'translate3d(0,0,0) scale(1)' },
+                    { opacity: 0, transform: 'translate3d(0,0,0) scale(1.05)' }
+                ], { duration: fadeTime, easing: 'cubic-bezier(0.4, 0, 0.2, 1)', fill: 'forwards' });
+
+                // 2. Fade in next
+                nextEl.style.zIndex = 2;
+                currentEl.style.zIndex = 1;
+
+                nextEl.animate([
+                    { opacity: 0, transform: 'translate3d(0,0,0) scale(1.1)' },
+                    { opacity: 1, transform: 'translate3d(0,0,0) scale(1)' }
+                ], { duration: fadeTime, easing: 'cubic-bezier(0.4, 0, 0.2, 1)', fill: 'forwards' });
+
+                currentSlide = nextSlideIdx;
+            } catch (e) {
+                // Fallback for older browsers
+                currentEl.classList.remove('active');
+                nextEl.classList.add('active');
+                currentSlide = nextSlideIdx;
+            }
+        };
+
+        setInterval(runSlideshow, displayTime + fadeTime);
     });
 }
 

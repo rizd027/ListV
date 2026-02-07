@@ -114,15 +114,16 @@
     height: 100%;
     object-fit: cover;
     opacity: 0;
-    transform: scale(1.08); /* Start slightly zoomed in */
-    transition: opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1), 
-                transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    /* Hardware acceleration layer */
+    transform: translate3d(0,0,0) scale(1.08); 
+    backface-visibility: hidden;
+    perspective: 1000px;
     will-change: opacity, transform;
 }
 
 .slide.active {
     opacity: 1;
-    transform: scale(1); /* Smoothly zoom to original size */
+    transform: translate3d(0,0,0) scale(1);
     z-index: 2;
 }
 
