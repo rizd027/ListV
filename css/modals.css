@@ -33,11 +33,11 @@
 }
 
 .mdl-container {
-    background: #090c1252; /* Solid background for performance */
+    background: #090c1252;
     border: 1px solid var(--mdl-border);
     border-radius: 12px !important;
-    width: 92%;
-    max-width: 320px;
+    width: 95%; /* Increased from 92% */
+    max-width: 340px; /* Increased from 320px for better fit */
     display: flex;
     flex-direction: column;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
@@ -243,11 +243,14 @@
     height: 100% !important;
     background: transparent !important;
     border: none !important;
-    padding: 0 32px 0 10px !important; /* Spacious right padding for arrow */
-    font-size: 0.78rem !important;
-    font-weight: 400 !important;
+    padding: 0 28px 0 8px !important; /* Reduced padding from 32/10 */
+    font-size: 0.72rem !important; /* Slightly smaller for mobile */
+    font-weight: 500 !important;
     box-shadow: none !important;
     width: 100% !important;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .mdl-container .custom-select-trigger::after {
