@@ -25,6 +25,13 @@ window.addEventListener('componentsLoaded', () => {
             });
         }
     }
+
+    // Hide dashboard-only UI if on login page
+    if (!elements.tableBody) {
+        if (elements.addBtn) elements.addBtn.classList.add('hidden');
+        if (elements.bottomNav) elements.bottomNav.classList.add('hidden');
+        document.body.style.paddingBottom = '0';
+    }
 });
 
 
