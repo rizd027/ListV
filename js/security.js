@@ -28,7 +28,7 @@
                 }
             });
         })('bugger');
-    }, 1000);
+    }, 4000); // Increased interval to 4s for better performance
 
     // Attempt to keep console clean without breaking other scripts
     try {

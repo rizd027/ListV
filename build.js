@@ -52,20 +52,20 @@ async function build() {
             module: true // Handle ES Modules correctly
         });
 
-        // Obfuscate
+        // Obfuscate with balanced settings for performance
         const obfuscated = JavaScriptObfuscator.obfuscate(minified.code, {
             compact: true,
             controlFlowFlattening: true,
-            controlFlowFlatteningThreshold: 0.75,
+            controlFlowFlatteningThreshold: 0.1, // Reduced for performance
             deadCodeInjection: true,
-            deadCodeInjectionThreshold: 0.4,
-            debugProtection: true,
-            debugProtectionInterval: 2000,
-            disableConsoleOutput: false, // Re-enable for debugging blank page
+            deadCodeInjectionThreshold: 0.05, // Reduced for performance
+            debugProtection: false, // Disabled here as we use security.js
+            debugProtectionInterval: 0,
+            disableConsoleOutput: false,
             identifierNamesGenerator: 'hexadecimal',
             log: false,
             numbersToExpressions: true,
-            renameGlobals: false, // Set to true for even more security, but might break modules
+            renameGlobals: false,
             selfDefending: true,
             simplify: true,
             splitStrings: true,
@@ -73,7 +73,7 @@ async function build() {
             stringArray: true,
             stringArrayCallsTransform: true,
             stringArrayEncoding: ['base64'],
-            stringArrayThreshold: 0.75,
+            stringArrayThreshold: 0.5, // Reduced for performance
             unicodeEscapeSequence: false
         });
 
