@@ -675,7 +675,7 @@ function escapeHtml(text) {
 }
 
 function getStatusClass(status) {
-    const map = { 'Selesai': 'status-selesai', 'Sedang Ditonton': 'status-sedang-ditonton', 'Rencana': 'status-rencana', 'Ditunda': 'status-ditunda', 'Drop': 'status-drop' };
+    const map = { 'Selesai': 'status-selesai', 'Watching': 'status-sedang-ditonton', 'Rencana': 'status-rencana', 'Ditunda': 'status-ditunda', 'Drop': 'status-drop' };
     return map[status] || '';
 }
 
