@@ -1,0 +1,19 @@
+{
+  "name": "listv-1.8",
+  "version": "1.0.0",
+  "description": "",
+  "main": "scripts.js",
+  "scripts": {
+    "build": "node build.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "devDependencies": {
+    "dotenv": "^17.2.4",
+    "javascript-obfuscator": "^5.3.0",
+    "terser": "^5.46.0"
+  }
+}
