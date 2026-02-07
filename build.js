@@ -81,7 +81,20 @@ async function build() {
         fs.writeFileSync(outputPath, obfuscated.getObfuscatedCode());
     }
 
-    // 2. Copy CSS, HTML, and Components (Static assets)
+    // Helper for recursive copy
+    function copyFolderSync(from, to) {
+        if (!fs.existsSync(from)) return;
+        if (!fs.existsSync(to)) fs.mkdirSync(to, { recursive: true });
+        fs.readdirSync(from).forEach(element => {
+            if (fs.lstatSync(path.join(from, element)).isDirectory()) {
+                copyFolderSync(path.join(from, element), path.join(to, element));
+            } else {
+                fs.copyFileSync(path.join(from, element), path.join(to, element));
+            }
+        });
+    }
+
+    // 2. Copy Static Assets
     console.log('📂 Copying assets...');
 
     // Copy HTML
@@ -91,18 +104,10 @@ async function build() {
         fs.writeFileSync(path.join(CONFIG.outputDir, sub), content);
     });
 
-    // Copy CSS
-    const cssFiles = fs.readdirSync(path.join(CONFIG.srcDir, 'css'));
-    cssFiles.forEach(file => {
-        const content = fs.readFileSync(path.join(CONFIG.srcDir, 'css', file), 'utf8');
-        fs.writeFileSync(path.join(CONFIG.outputDir, 'css', file), content);
-    });
-
-    // Copy Components
-    const compFiles = fs.readdirSync(path.join(CONFIG.srcDir, 'components'));
-    compFiles.forEach(file => {
-        const content = fs.readFileSync(path.join(CONFIG.srcDir, 'components', file), 'utf8');
-        fs.writeFileSync(path.join(CONFIG.outputDir, 'components', file), content);
+    // Copy Folders
+    ['css', 'components', 'assets'].forEach(folder => {
+        console.log(`  - Copying ${folder}...`);
+        copyFolderSync(path.join(CONFIG.srcDir, folder), path.join(CONFIG.outputDir, folder));
     });
 
     // Copy remaining root assets
