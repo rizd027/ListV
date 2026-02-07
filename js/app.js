@@ -223,10 +223,14 @@ function startSlideshow() {
             if (i === 0) s.classList.add('active');
         });
         setInterval(() => {
+            const nextSlide = (currentSlide + 1) % slides.length;
+
+            // Premium transition logic
             slides[currentSlide].classList.remove('active');
-            currentSlide = (currentSlide + 1) % slides.length;
-            slides[currentSlide].classList.add('active');
-        }, 2000);
+            slides[nextSlide].classList.add('active');
+
+            currentSlide = nextSlide;
+        }, 4000); // Increased interval to 4s for more "breathing" space
     });
 }
 

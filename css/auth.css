@@ -109,17 +109,20 @@
 
 .slide {
     position: absolute;
-    top: 0;
-    left: 0;
+    inset: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
     opacity: 0;
-    transition: opacity 1s ease-in-out;
+    transform: scale(1.08); /* Start slightly zoomed in */
+    transition: opacity 1.5s cubic-bezier(0.4, 0, 0.2, 1), 
+                transform 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+    will-change: opacity, transform;
 }
 
 .slide.active {
     opacity: 1;
+    transform: scale(1); /* Smoothly zoom to original size */
     z-index: 2;
 }
 
