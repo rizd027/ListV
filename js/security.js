@@ -1,8 +1,8 @@
 (function () {
     'use strict';
 
-    // 1. Disable Right Click
-    document.addEventListener('contextmenu', e => e.preventDefault());
+    // 1. Disable Right Click (Enabled by user request)
+    // document.addEventListener('contextmenu', e => e.preventDefault());
 
     // 2. Disable Common Shortcuts (F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+U)
     document.onkeydown = function (e) {
